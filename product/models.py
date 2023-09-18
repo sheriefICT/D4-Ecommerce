@@ -1,7 +1,10 @@
+from typing import Iterable, Optional
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from taggit.managers import TaggableManager
+from django.utils.text import slugify
 
 FLAG_TYPES = (
     ('Sale', 'Sale'),
@@ -19,8 +22,14 @@ class Product(models.Model):
     dsecreiption = models.TextField(_('Dsecreiption'),max_length=5000)
     quantity = models.IntegerField(_('Quantity'))
     brand = models.ForeignKey('Brand' , verbose_name=_('Brands'), related_name='product_brand', on_delete=models.SET_NULL , null=True)
+    tags = TaggableManager(_('TAGS'))
+    slug = models.SlugField(null=True, blank=True)
     def __str__(self):
         return self.name
+    
+    def save(self, *args, **kwargs):
+       self.slug = slugify(self.name)
+       super(Product, self).save(*args, **kwargs)
 
 class ProductImages(models.Model):
     product = models.ForeignKey(Product, verbose_name=_('Product-Images'), related_name='product_image', on_delete=models.SET_NULL , null=True)
@@ -31,8 +40,13 @@ class ProductImages(models.Model):
 class Brand(models.Model):
     name = models.CharField( _('Name'), max_length=100)
     image = models.ImageField(_('Brand-Images-Upload'),upload_to='brands')
+    slug = models.SlugField(null=True, blank=True)
+
     def __str__(self):
         return self.name
+    def save(self, *args, **kwargs):
+       self.slug = slugify(self.name)
+       super(Brand, self).save(*args, **kwargs)
 
 class Review(models.Model):
     user = models.ForeignKey( User , verbose_name=_('User-Review'), related_name='user_reviews', on_delete=models.SET_NULL, null=True)
