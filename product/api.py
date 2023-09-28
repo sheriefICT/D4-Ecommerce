@@ -2,6 +2,10 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import generics
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
+
+
+
 from .serializers import *
 from .models import Product, Brand
 
@@ -30,7 +34,12 @@ from .models import Product, Brand
 class ProductLisAPI(generics.ListCreateAPIView):  #  Rest-FrameworkAPIللعرض والاضافه مع النظر الي ديكومنتاشن مكتبه 
     queryset = Product.objects.all()
     serializer_class = ProductListSerializer
+
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+
     filterset_fields = ['flag', 'brand']
+    search_fields = ['name', 'subtitle', 'dsecreiption']
+    ordering_fields = ['price', 'quantity'] # '__all__'كما يمكن الفلتر 
 
 
 
