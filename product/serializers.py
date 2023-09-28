@@ -13,6 +13,7 @@ class ProductListSerializer(serializers.ModelSerializer):
     reviews_count = serializers.SerializerMethodField()
     price_withTex = serializers.SerializerMethodField()
 
+
     class Meta:
         model = Product 
         fields = '__all__'

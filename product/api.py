@@ -1,8 +1,10 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework import generics
+from django_filters.rest_framework import DjangoFilterBackend
 from .serializers import *
 from .models import Product, Brand
-from rest_framework import generics
+
 
 ###################### start API As Functions #######################
 # @api_view(['GET'])
@@ -28,6 +30,8 @@ from rest_framework import generics
 class ProductLisAPI(generics.ListCreateAPIView):  #  Rest-FrameworkAPIللعرض والاضافه مع النظر الي ديكومنتاشن مكتبه 
     queryset = Product.objects.all()
     serializer_class = ProductListSerializer
+    filterset_fields = ['flag', 'brand']
+
 
 
 
