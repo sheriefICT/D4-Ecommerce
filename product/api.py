@@ -1,3 +1,5 @@
+from rest_framework.permissions import IsAuthenticated
+
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import generics
@@ -44,6 +46,8 @@ class ProductLisAPI(generics.ListCreateAPIView):  #  Rest-FrameworkAPIللعرض
     #ordering_fields = ['price', 'quantity'] #  ,والنظر ال المكتبه'__all__'كما يمكن الفلتر 
     filterset_class = ProductFilter
     pagination_class = MyPagination
+    permission_classes = [IsAuthenticated]
+
     
 
 class ProductDetaleAPI(generics.RetrieveUpdateDestroyAPIView):  #  Rest-FrameworkAPIللعرض والاضافه مع النظر الي ديكومنتاشن مكتبه 
