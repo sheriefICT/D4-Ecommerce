@@ -4,6 +4,7 @@ from rest_framework import generics
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from .myfilter import ProductFilter
+from .mypagination import MyPagination
 
 
 
@@ -42,10 +43,8 @@ class ProductLisAPI(generics.ListCreateAPIView):  #  Rest-FrameworkAPIللعرض
     #search_fields = ['name', 'subtitle', 'dsecreiption']
     #ordering_fields = ['price', 'quantity'] #  ,والنظر ال المكتبه'__all__'كما يمكن الفلتر 
     filterset_class = ProductFilter
+    pagination_class = MyPagination
     
-
-
-
 
 class ProductDetaleAPI(generics.RetrieveUpdateDestroyAPIView):  #  Rest-FrameworkAPIللعرض والاضافه مع النظر الي ديكومنتاشن مكتبه 
     queryset = Product.objects.all()
