@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework import generics
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
+from .myfilter import ProductFilter
 
 
 
@@ -37,9 +38,11 @@ class ProductLisAPI(generics.ListCreateAPIView):  #  Rest-FrameworkAPIللعرض
 
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
 
-    filterset_fields = ['flag', 'brand']
-    search_fields = ['name', 'subtitle', 'dsecreiption']
-    ordering_fields = ['price', 'quantity'] # '__all__'كما يمكن الفلتر 
+    #filterset_fields = ['flag', 'brand']
+    #search_fields = ['name', 'subtitle', 'dsecreiption']
+    #ordering_fields = ['price', 'quantity'] #  ,والنظر ال المكتبه'__all__'كما يمكن الفلتر 
+    filterset_class = ProductFilter
+    
 
 
 
