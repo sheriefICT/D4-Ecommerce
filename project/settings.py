@@ -33,6 +33,8 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
+    'dj_rest_auth',
+
     'taggit',
     'rest_framework',
     'django_filters',
@@ -148,3 +150,8 @@ MEDIA_ROOT = BASE_DIR / "Media"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_AUTH = {
+    'USE_JWT': True,
+    'JWT_AUTH_COOKIE': 'jwt-auth',
+}
