@@ -16,7 +16,13 @@ class Cart(models.Model):
     user = models.ForeignKey(User , related_name='cart_user',on_delete=models.SET_NULL, null=True, blank=True)
     status = models.CharField(max_length=20, choices=CART_STATUS)
     def __str__(self):
-        return self.user   
+        return str(self.user)  
+    
+    def cart_total(self):
+        total = 0
+        for item in self.cart_detale.all():
+            total += item.total
+        return total  
 
 class CartDetale(models.Model):
     cart = models.ForeignKey(Cart, related_name='cart_detale', on_delete=models.CASCADE)
@@ -24,7 +30,9 @@ class CartDetale(models.Model):
     quantity = models.IntegerField()
     total = models.FloatField(null=True, blank=True)
     def __str__(self):
-        return self.cart
+        return str(self.cart)
+    
+ 
 
 
 ORDER_STATUS = (
@@ -42,7 +50,7 @@ class Order(models.Model):
     coupon = models.ForeignKey('Coupan', related_name='order_coupons', on_delete=models.SET_NULL, null=True, blank=True)
     total_after_discount = models.FloatField(null=True, blank=True)
     def __str__(self):
-        return self.user
+        return str(self.user)
     
 class OrderDetail(models.Model):
     order = models.ForeignKey(Cart, related_name='order_detale', on_delete=models.CASCADE)
@@ -51,7 +59,7 @@ class OrderDetail(models.Model):
     quantity = models.IntegerField()
     total = models.FloatField(null=True, blank=True)
     def __str__(self):
-        return self.order
+        return str(self.order)
 
 class Coupan(models.Model):
     code = models.CharField(max_length=20)
