@@ -3,6 +3,8 @@ from .views import *
 
 urlpatterns = [
     path('', OrderList.as_view()),
+    path('checkout/', checkout),
+
 
 
 
