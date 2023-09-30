@@ -53,7 +53,7 @@ class Order(models.Model):
         return str(self.user)
     
 class OrderDetail(models.Model):
-    order = models.ForeignKey(Cart, related_name='order_detale', on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, related_name='order_detail', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, related_name='order_product', on_delete=models.SET_NULL, null=True, blank=True)
     price = models.FloatField()
     quantity = models.IntegerField()
