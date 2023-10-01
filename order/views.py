@@ -32,7 +32,10 @@ def add_to_cart(request): # الاضافه في السله
     return redirect(f'/products/{product.slug}')
 
 
-
+def remove_to_cart(request, id):
+    cart_detail = CartDetale.objects.filter(id=id)
+    cart_detail.delete()
+    return redirect('/products/')
 
 
 @login_required
