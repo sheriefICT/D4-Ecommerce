@@ -31,16 +31,15 @@ class CartDetale(models.Model):
     total = models.FloatField(null=True, blank=True)
     def __str__(self):
         return str(self.cart)
-    
+
  
-
-
 ORDER_STATUS = (
     ('Resieved','Resieved'),
     ('Processed','Processed'),
     ('Shipped','Shipped'),
     ('Delivered','Delivered'), 
 )
+
 class Order(models.Model):
     user = models.ForeignKey(User , related_name='order_user',on_delete=models.SET_NULL, null=True, blank=True)
     status = models.CharField(max_length=20, choices=ORDER_STATUS)

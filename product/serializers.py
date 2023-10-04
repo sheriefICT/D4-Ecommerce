@@ -13,7 +13,6 @@ class ProductListSerializer(serializers.ModelSerializer):
     reviews_count = serializers.SerializerMethodField()
     price_withTex = serializers.SerializerMethodField()
 
-
     class Meta:
         model = Product 
         fields = '__all__'
@@ -59,9 +58,6 @@ class ProductDetaleSerializer(serializers.ModelSerializer):
     def get_reviews_count(self, product: Product):
         reviews = product.product_reviews.all().count()
         return reviews
-
-
-
 
 class BrandListSerializer(serializers.ModelSerializer):
       class Meta:
